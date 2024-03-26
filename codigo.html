@@ -1,0 +1,36 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Configuración del carrusel
+    $('.product-carousel').on('scroll', function() {
+        var $this = $(this),
+            scrollLeft = $this.scrollLeft(),
+            scrollWidth = $this.prop('scrollWidth'),
+            width = $this.width();
+
+        var scrolled = scrollLeft + width;
+
+        if (scrolled >= scrollWidth) {
+            $this.animate({ scrollLeft: 0 }, 'slow');
+        }
+    });
+
+    // Iniciar el carrusel automáticamente
+    var scrollSpeed = 50; // Velocidad del desplazamiento
+    var scrollTimer;
+    
+    function startScrolling() {
+        scrollTimer = setInterval(function() {
+            var $carousel = $('.product-carousel');
+            $carousel.scrollLeft($carousel.scrollLeft() + 1);
+        }, scrollSpeed);
+    }
+
+    function stopScrolling() {
+        clearInterval(scrollTimer);
+    }
+
+    $('.product-carousel').hover(stopScrolling, startScrolling);
+    startScrolling(); // Iniciar el carrusel automáticamente
+});
+</script>
